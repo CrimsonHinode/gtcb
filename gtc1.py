@@ -35,16 +35,21 @@ while guessing < 4:
         audio = r.listen(source)
         guessing = guessing +1
         try:
-            guess = r.recognize_google(audio)
-            engine.say("You said: {}" .format(guess))
-            if guess == target:
-                engine.say("Correct!")
-                guessing = str(guessing)     
-                engine.say("You win!")
-                break
-            if guess != target:
-                engine.say("Wrong!")
-    
+            guess = r.recognize_google(audio).lower()
+            if guess in colors:
+                engine.say("You said: {}" .format(guess))
+                if guess == target:
+                    engine.say("Correct!")
+                    guessing = str(guessing)     
+                    engine.say("You win!")
+                    break
+                if guess != target:
+                    engine.say("Wrong!")
+            
+            else:
+                engine.say("Choose from the colors!")
+                guessing = guessing -1
+                
         except BaseException as e:
             engine.say("Sorry, I didn't understand.")
             guessing = guessing -1
