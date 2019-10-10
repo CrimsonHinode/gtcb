@@ -35,17 +35,31 @@ while guessing < 4:
         audio = r.listen(source)
         guessing = guessing +1
         try:
-            guess = r.recognize_google(audio).lower()
-            if guess in colors:
+            guess = r.recognize_google(audio).lower()  
+            if guess in colors or "repeat colors" in guess or "repeat colours" in guess or "repeat colour" in guess or "repeat color" in guess:
                 engine.say("You said: {}" .format(guess))
-                if guess == target:
-                    engine.say("Correct!")
-                    guessing = str(guessing)     
-                    engine.say("You win!")
-                    break
-                if guess != target:
-                    engine.say("Wrong!")
-            
+                if "repeat colors" in guess or "repeat colours" in guess or "repeat colour" in guess or "repeat color" in guess:
+                    engine.say ("white")
+                    engine.say ("yellow")
+                    engine.say ("orange")
+                    engine.say ("red")
+                    engine.say ("pink")
+                    engine.say ("green")
+                    engine.say ("blue")
+                    engine.say ("purple")
+                    engine.say ("brown")
+                    engine.say ("grey")
+                    engine.say ("black")
+                    guessing = guessing -1
+                else:
+                    if guess == target:
+                        engine.say("Correct!")
+                        guessing = str(guessing)     
+                        engine.say("You win!")
+                        break
+                    if guess != target:
+                        engine.say("Wrong!")
+
             else:
                 engine.say("Choose from the colors!")
                 guessing = guessing -1
@@ -59,5 +73,6 @@ else:
     guessing = False
     target = str(target)  
     engine.say("You lost! I was thinking: " + target)
-    
+
 engine.runAndWait()
+
