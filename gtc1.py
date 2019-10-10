@@ -1,4 +1,5 @@
 import speech_recognition as sr
+import pyttsx3
 import time
 import random
 
@@ -6,47 +7,52 @@ import random
 colors = ["black", "white", "pink","grey","green","blue","yellow","red","purple","brown","orange"]
 target = random.choice(colors)
 r = sr.Recognizer()
+engine = pyttsx3.init()
 
 guessing = 0
 
-print ("Hello!")
-time.sleep(1)
-print ("Let's play a colour guess game.")
-time.sleep(3)
-print ("You can guess from these colours:")
-time.sleep(3)
-print ("black, white, pink, grey, green, blue, yellow, red, purple, brown, orange")
-time.sleep(5)
-print("You have 3 possibility.")
-time.sleep(2)
+engine.say("Hello")
+engine.say("Let's play a color guess game.")
+engine.say ("You can choose from these colors.")
+engine.say ("white")
+engine.say ("yellow")
+engine.say ("orange")
+engine.say ("red")
+engine.say ("pink")
+engine.say ("green")
+engine.say ("blue")
+engine.say ("purple")
+engine.say ("brown")
+engine.say ("grey")
+engine.say ("black")
+engine.say("You have 3 possibility.")
 
 guessing = True
 while guessing < 4:
     with sr.Microphone() as source:
-        print ("Take a guess.")
+        engine.say("Take a guess!")
+        engine.runAndWait()
         audio = r.listen(source)
         guessing = guessing +1
         try:
             guess = r.recognize_google(audio)
-            print("You said: {}" .format(guess)) 
+            engine.say("You said: {}" .format(guess))
             if guess == target:
-                print("Correct!")
+                engine.say("Correct!")
                 guessing = str(guessing)     
-                print("You win!")
-                time.sleep(2)
+                engine.say("You win!")
                 break
             if guess != target:
-                print("Wrong!")
+                engine.say("Wrong!")
     
         except BaseException as e:
-            print("Sorry, I didn't understand.")
+            engine.say("Sorry, I didn't understand.")
             guessing = guessing -1
 
         
 else:
     guessing = False
     target = str(target)  
-    print("You lost! I was thinking: " + target)
-    time.sleep(3)
+    engine.say("You lost! I was thinking: " + target)
     
-
+engine.runAndWait()
